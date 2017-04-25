@@ -61,7 +61,7 @@ Slayer.prototype.update = function(){
     for(i in allEnemies)
     {
 
-        if(this.x === allEnemies[i].x && this.y === allEnemies[i].y)
+        if(this.x + 40 > allEnemies[i].x && this.x < allEnemies[i].x + 40 && this.y + 40 > allEnemies[i].y && this.y < allEnemies[i].y + 40)
         {
             this.lives-=1;
             this.x = 200;
@@ -70,6 +70,7 @@ Slayer.prototype.update = function(){
             {
                 alert("Your score : " +this.score);
                 this.score = 0;
+                this.lives=5;
             }
             
         }
