@@ -1,6 +1,7 @@
 // Enemies our player must avoid
 var defStartX = -50;
-var speeeed = 200;
+var speeeed = 500;
+var score = 0;
 var Enemy = function(posX,posY) {
     this.x = posX;
     this.y = posY;
@@ -32,8 +33,8 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    this.x += 1;
-
+   
+    
 };
 
 // Now write your own player class
@@ -47,6 +48,7 @@ var Slayer = function(posX,posY)
     this.x = posX;
     this.y = posY;
     this.sprite = 'images/enemy-bug.png';
+    this.score = 0;
 };
 
 
@@ -56,7 +58,16 @@ var player = new Slayer(200,400);
 Slayer.prototype.update = function(){};
 
 // Creates Player
-Slayer.prototype.render = function(){ctx.drawImage(Resources.get(this.sprite), this.x, this.y);};
+Slayer.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //ctx.textAlign = "top";
+    //ctx.textAlign = "right";
+    ctx.textBaseLine = "top";
+     ctx.font="40px Impact";
+    ctx.strokeStyle="Black";
+    ctx.fillStyle="white";
+    ctx.fillText(this.score,450,120);
+    ctx.strokeText(this.score,450,120);};
 
 // Controls how you wanna play it
 Slayer.prototype.handleInput = function(){};
