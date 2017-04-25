@@ -1,7 +1,9 @@
 // Enemies our player must avoid
-var defStartX = -50;
-var speeeed = 500;
-var score = 0;
+var  defStartX = -50,
+     rightBorder = 410,
+     leftBorder = 0,
+     speeeed = 500,
+     score = 0;
 var Enemy = function(posX,posY) {
     this.x = posX;
     this.y = posY;
@@ -33,7 +35,6 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-   
     
 };
 
@@ -49,28 +50,96 @@ var Slayer = function(posX,posY)
     this.y = posY;
     this.sprite = 'images/enemy-bug.png';
     this.score = 0;
+    this.lives = 5;
 };
 
 
 var player = new Slayer(200,400);
 
-//Controls logic of the game
-Slayer.prototype.update = function(){};
+//Controls winning or losing
+Slayer.prototype.update = function(){
+    for(i in allEnemies)
+    {
 
+        if(this.x === allEnemies[i].x && this.y === allEnemies[i].y)
+        {
+            this.lives-=1;
+            this.x = 200;
+            this.y = 400;
+            if(this.lives === 0)
+            {
+                alert("Your score : " +this.score);
+                this.score = 0;
+            }
+            
+        }
+    }
+};
+var H = new Image();
+H.src = 'images/Heart.png';
+
+var scr = new Image();
+scr.src = 'images/Star.png';
 // Creates Player
 Slayer.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //ctx.textAlign = "top";
-    //ctx.textAlign = "right";
+    ctx.drawImage(H,0 ,20);
+    ctx.drawImage(scr,420 ,0);
+    
+    // Displays Score
     ctx.textBaseLine = "top";
      ctx.font="40px Impact";
     ctx.strokeStyle="Black";
     ctx.fillStyle="white";
     ctx.fillText(this.score,450,120);
-    ctx.strokeText(this.score,450,120);};
+    ctx.strokeText(this.score,450,120);
 
-// Controls how you wanna play it
-Slayer.prototype.handleInput = function(){};
+    // Displays Lives
+    ctx.fillText(this.lives,40,125);
+    ctx.strokeText(this.lives,40,125);
+};
+
+// Controls controls and partial logic of game
+Slayer.prototype.handleInput = function(key){
+        if(key === 'left')
+    {
+        this.x-=100;
+        if(this.x < leftBorder)
+        {
+            this.x = rightBorder;
+        }
+    }
+
+
+        if(key === 'right')
+    {
+        this.x+=100;
+        if(this.x > rightBorder)
+        {
+            this.x = leftBorder;
+        }
+    }
+
+
+        if(key === 'down')
+    {
+        this.y += 100;
+        if(this.y > 400)
+        {
+            this.y = 400;
+        }
+    }
+
+        if(key === 'up')
+        {
+            this.y -= 90;
+            if(this.y < 10)
+            {
+                this.score += 5;
+                this.y = 400;
+            }
+        }
+};
 
 
 // Now instantiate your objects.
