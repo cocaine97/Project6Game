@@ -42,7 +42,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-//Would have 
+
 var allEnemies = [new Enemy(30,45), new Enemy(300,130), new Enemy(500,210)];
 var Slayer = function(posX,posY)
 {
