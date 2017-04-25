@@ -31,7 +31,7 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var allEnemies = [new Enemy(30,60)];
+var allEnemies = [new Enemy(30,60), new Enemy(60,60)];
 var Slayer = function(posX,posY)
 {
     this.x = posX;
@@ -41,6 +41,9 @@ var Slayer = function(posX,posY)
 
 
 var player = new Slayer(200,400);
+Slayer.prototype.update = function(){};
+Slayer.prototype.render = function(){};
+Slayer.prototype.handleInput = function(){};
 
 
 // Now instantiate your objects.
